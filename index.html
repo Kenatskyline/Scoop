@@ -59,7 +59,11 @@ opacity:.9;
 
 <form id="form">
 
-<input type="text" id="location" placeholder="Location" required>
+<input type="text" id="Address" placeholder="Address" required>
+
+  <input type="tel" id="phone" placeholder="Phone Number" required>
+
+  <input type="email" id="email" placeholder="Email Address" required>
 
 <input type="number" id="dogs" placeholder="How many dogs?" required>
 
@@ -82,14 +86,16 @@ document.getElementById("form").addEventListener("submit",function(e){
 
 e.preventDefault()
 
-let location=document.getElementById("location").value
+let address=document.getElementById("Address").value
+let phone=document.getElementById("phone").value
+let email=document.getElementById("email").value
 let dogs=document.getElementById("dogs").value
 let frequency=document.getElementById("frequency").value
 
 let subject="SCOOP Cleanup Request"
 
 let body=
-"Location: "+location+"%0D%0A"+
+"Location: "+Address+"%0D%0A"+
 "Dogs: "+dogs+"%0D%0A"+
 "Frequency: "+frequency
 
