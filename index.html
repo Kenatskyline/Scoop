@@ -1,146 +1,153 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>SCOOP</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SCOOP</title>
 
-<style>
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      background:#f4f4f4;
+      text-align:center;
+      padding:40px;
+      margin:0;
+    }
 
-body{
-font-family: Arial;
-background:#f4f4f4;
-text-align:center;
-padding:40px;
-}
+    .container{
+      background:white;
+      padding:30px;
+      border-radius:10px;
+      max-width:600px;
+      margin:auto;
+      box-shadow: 0 6px 22px rgba(0,0,0,.08);
+    }
 
-.container{
-background:white;
-padding:30px;
-border-radius:10px;
-max-width:600px;
-margin:auto;
-}
+    img{
+      max-width:100%;
+      height:auto;
+      margin-bottom:30px;
+    }
 
-img{
-max-width:100%;
-margin-bottom:30px;
-}
+    input, select{
+      width:100%;
+      padding:12px;
+      margin:10px 0;
+      font-size:16px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+    }
 
-input,select{
-width:100%;
-padding:10px;
-margin:10px 0;
-font-size:16px;
-}
+    button{
+      background:#1e2f44;
+      color:white;
+      border:none;
+      padding:15px;
+      font-size:18px;
+      width:100%;
+      cursor:pointer;
+      border-radius: 10px;
+      margin-top: 6px;
+    }
 
-button{
-background:#1e2f44;
-color:white;
-border:none;
-padding:15px;
-font-size:18px;
-width:100%;
-cursor:pointer;
-}
+    button:hover{
+      opacity:.9;
+    }
 
-button:hover{
-opacity:.9;
-}
-
-</style>
+    .small-note{
+      color:#666;
+      font-size:13px;
+      margin-top:6px;
+    }
+  </style>
 </head>
 
 <body>
+  <div class="container">
+    <!-- IMPORTANT: this matches your repo file name exactly -->
+    <img src="scoop-logo.PNG" alt="SCOOP Logo" />
 
-<div class="container">
+    <h2>Cleanup Questionnaire</h2>
 
-<img src="scoop-logo.PNG">
+    <form id="form">
+      <input type="text" id="clientName" placeholder="Client Name" required />
+      <input type="text" id="address" placeholder="Address" required />
+      <input type="tel" id="phone" placeholder="Phone Number" required />
+      <input type="email" id="email" placeholder="Email Address" required />
 
-<h2>Cleanup Questionnaire</h2>
+      <input type="number" id="dogs" placeholder="How many dogs?" min="1" step="1" required />
 
-<form id="form">
+      <!-- Dog name fields will be generated here -->
+      <div id="dogNames"></div>
 
-<input type="text" id="clientName" placeholder="Your Name" required>
+      <select id="frequency" required>
+        <option value="Weekly">Weekly</option>
+        <option value="2x per week">2x per week</option>
+        <option value="Bi-weekly">Bi-weekly</option>
+        <option value="One time cleanup">One time cleanup</option>
+      </select>
 
-<input type="text" id="address" placeholder="Address" required>
+      <button type="submit">Submit</button>
+      <div class="small-note">Submitting opens your email app with the message pre-filled.</div>
+    </form>
+  </div>
 
-<input type="tel" id="phone" placeholder="Phone Number" required>
+  <script>
+    const dogInput = document.getElementById("dogs");
+    const dogNamesDiv = document.getElementById("dogNames");
 
-<input type="email" id="email" placeholder="Email Address" required>
+    function renderDogNameFields() {
+      dogNamesDiv.innerHTML = "";
 
-<input type="number" id="dogs" placeholder="How many dogs?" required>
+      const count = parseInt(dogInput.value, 10);
+      if (!Number.isFinite(count) || count <= 0) return;
 
-<div id="dogNames"></div>
+      for (let i = 1; i <= count; i++) {
+        const input = document.createElement("input");
+        input.type = "text";
+        input.placeholder = `Dog ${i} Name`;
+        input.className = "dogName";
+        input.required = true;
+        dogNamesDiv.appendChild(input);
+      }
+    }
 
-<select id="frequency">
-<option>Weekly</option>
-<option>2x per week</option>
-<option>Bi-weekly</option>
-<option>One time cleanup</option>
-</select>
+    dogInput.addEventListener("input", renderDogNameFields);
 
-<button type="submit">Submit</button>
+    document.getElementById("form").addEventListener("submit", function (e) {
+      e.preventDefault();
 
-</form>
+      const clientName = document.getElementById("clientName").value.trim();
+      const address = document.getElementById("address").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const dogs = document.getElementById("dogs").value.trim();
+      const frequency = document.getElementById("frequency").value;
 
-</div>
+      const dogNames = Array.from(document.querySelectorAll(".dogName"))
+        .map(el => el.value.trim())
+        .filter(Boolean);
 
-<script>
+      const to = "sammus422@gmail.com";
+      const subject = "SCOOP Cleanup Request";
 
-const dogInput = document.getElementById("dogs")
-const dogNamesDiv = document.getElementById("dogNames")
+      const bodyLines = [
+        `Client Name: ${clientName}`,
+        `Address: ${address}`,
+        `Phone: ${phone}`,
+        `Email: ${email}`,
+        `Dogs: ${dogs}`,
+        `Dog Names: ${dogNames.length ? dogNames.join(", ") : "N/A"}`,
+        `Frequency: ${frequency}`
+      ];
 
-dogInput.addEventListener("input", function(){
+      const mailto =
+        `mailto:${encodeURIComponent(to)}` +
+        `?subject=${encodeURIComponent(subject)}` +
+        `&body=${encodeURIComponent(bodyLines.join("\n"))}`;
 
-dogNamesDiv.innerHTML = ""
-
-let count = parseInt(dogInput.value)
-
-for(let i=1;i<=count;i++){
-
-let input = document.createElement("input")
-input.type="text"
-input.placeholder="Dog "+i+" Name"
-input.className="dogName"
-
-dogNamesDiv.appendChild(input)
-
-}
-
-})
-
-document.getElementById("form").addEventListener("submit",function(e){
-
-e.preventDefault()
-
-let clientName=document.getElementById("clientName").value
-let address=document.getElementById("address").value
-let phone=document.getElementById("phone").value
-let email=document.getElementById("email").value
-let dogs=document.getElementById("dogs").value
-let frequency=document.getElementById("frequency").value
-
-let dogNames=[]
-document.querySelectorAll(".dogName").forEach(function(el){
-dogNames.push(el.value)
-})
-
-let subject="SCOOP Cleanup Request"
-
-let body=
-"Client Name: "+clientName+"%0D%0A"+
-"Address: "+address+"%0D%0A"+
-"Phone: "+phone+"%0D%0A"+
-"Email: "+email+"%0D%0A"+
-"Dogs: "+dogs+"%0D%0A"+
-"Dog Names: "+dogNames.join(", ")+"%0D%0A"+
-"Frequency: "+frequency
-
-window.location.href=
-"mailto:sammus422@gmail.com?subject="+subject+"&body="+body
-
-})
-
-</script>
-
+      window.location.href = mailto;
+    });
+  </script>
 </body>
 </html>
