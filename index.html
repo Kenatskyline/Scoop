@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SCOOP</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#f4f4f4;
+text-align:center;
+padding:40px;
+}
+
+.container{
+background:white;
+padding:30px;
+border-radius:10px;
+max-width:600px;
+margin:auto;
+}
+
+img{
+max-width:100%;
+margin-bottom:30px;
+}
+
+input,select{
+width:100%;
+padding:10px;
+margin:10px 0;
+font-size:16px;
+}
+
+button{
+background:#1e2f44;
+color:white;
+border:none;
+padding:15px;
+font-size:18px;
+width:100%;
+cursor:pointer;
+}
+
+button:hover{
+opacity:.9;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<img src="scoop-logo.jpeg">
+
+<h2>Cleanup Questionnaire</h2>
+
+<form id="form">
+
+<input type="text" id="location" placeholder="Location" required>
+
+<input type="number" id="dogs" placeholder="How many dogs?" required>
+
+<select id="frequency">
+<option>Weekly</option>
+<option>2x per week</option>
+<option>Bi-weekly</option>
+<option>One time cleanup</option>
+</select>
+
+<button type="submit">Submit</button>
+
+</form>
+
+</div>
+
+<script>
+
+document.getElementById("form").addEventListener("submit",function(e){
+
+e.preventDefault()
+
+let location=document.getElementById("location").value
+let dogs=document.getElementById("dogs").value
+let frequency=document.getElementById("frequency").value
+
+let subject="SCOOP Cleanup Request"
+
+let body=
+"Location: "+location+"%0D%0A"+
+"Dogs: "+dogs+"%0D%0A"+
+"Frequency: "+frequency
+
+window.location.href=
+"mailto:sammus422@gmail.com?subject="+subject+"&body="+body
+
+})
+
+</script>
+
+</body>
+</html>
