@@ -277,10 +277,9 @@
 
     try {
       const res = await fetch(ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
+  method: "POST",
+  body: new URLSearchParams(payload)
+});
 
       // 200 => accepted, 202 => treated as spam/invalid on server side
       if (res.ok) {
