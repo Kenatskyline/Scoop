@@ -29,7 +29,7 @@
     margin-bottom:30px;
   }
 
-  input, select, textarea{
+  input,select,textarea{
     width:100%;
     padding:12px;
     margin:10px 0;
@@ -41,7 +41,7 @@
 
   textarea{
     resize:vertical;
-    min-height:100px;
+    min-height:90px;
   }
 
   button{
@@ -54,18 +54,11 @@
     cursor:pointer;
     border-radius:10px;
   }
-
-  button:hover{ opacity:.9; }
-
-  .small-note{
-    color:#666;
-    font-size:13px;
-    margin-top:6px;
-    line-height:1.35;
-  }
+  button:hover{ opacity:.92; }
+  button:disabled{ opacity:.6; cursor:not-allowed; }
 
   .section-title{
-    margin-top:22px;
+    margin-top:25px;
     font-weight:bold;
     color:#1e2f44;
     text-align:left;
@@ -75,10 +68,56 @@
     display:flex;
     gap:10px;
   }
-  .row > *{ flex:1; }
-
+  .row>*{ flex:1; }
   @media (max-width:520px){
     .row{ flex-direction:column; gap:0; }
+  }
+
+  .estimate{
+    text-align:left;
+    background:#f5f8ff;
+    border:1px solid #d8e2ff;
+    border-radius:10px;
+    padding:12px;
+    margin:10px 0 0;
+  }
+  .estimate .big{
+    font-size:18px;
+    font-weight:800;
+    color:#1e2f44;
+    margin-bottom:4px;
+  }
+  .estimate .small{
+    font-size:13px;
+    color:#4a5568;
+    line-height:1.35;
+  }
+
+  .status{
+    display:none;
+    margin-top:12px;
+    padding:12px;
+    border-radius:10px;
+    text-align:left;
+    font-size:14px;
+    line-height:1.35;
+  }
+  .status.success{
+    background:#e9f7ef;
+    color:#1e7a3a;
+    border:1px solid #bfe9cf;
+  }
+  .status.error{
+    background:#fdecec;
+    color:#b42318;
+    border:1px solid #f5b5b0;
+  }
+
+  .small-note{
+    font-size:13px;
+    color:#666;
+    margin-top:8px;
+    line-height:1.35;
   }
 </style>
 </head>
@@ -87,73 +126,69 @@
 <div class="container">
 
   <img src="scoop-logo.PNG" alt="SCOOP Logo">
-
   <h2>DogWaste Removal Inquiry</h2>
 
-  <form id="form" autocomplete="on">
+  <form id="form"
+        action="https://formspree.io/f/xpqyazkn"
+        method="POST"
+        autocomplete="on">
+
+    <!-- optional helpers -->
+    <input type="hidden" name="_subject" value="DogWaste Removal Inquiry">
+    <input type="text" name="_gotcha" style="display:none">
 
     <div class="section-title">Customer Info</div>
 
     <div class="row">
-      <input type="text" id="firstName" placeholder="First Name" autocomplete="given-name" required>
-      <input type="text" id="lastName" placeholder="Last Name" autocomplete="family-name" required>
+      <input type="text" name="First Name" placeholder="First Name" autocomplete="given-name" required>
+      <input type="text" name="Last Name" placeholder="Last Name" autocomplete="family-name" required>
     </div>
 
-    <input type="text" id="streetAddress" placeholder="Street Address" autocomplete="street-address" required>
+    <input type="text" name="Street Address" placeholder="Street Address" autocomplete="street-address" required>
 
     <div class="row">
-      <input type="text" id="town" placeholder="Town / City" autocomplete="address-level2" required>
-      <input
-type="text"
-id="zip"
-placeholder="ZIP Code"
-autocomplete="postal-code"
-inputmode="numeric"
-maxlength="10"
-required>
+      <input type="text" name="Town" placeholder="Town / City" autocomplete="address-level2" required>
+      <input type="text" id="zip" name="ZIP" placeholder="ZIP Code" autocomplete="postal-code" inputmode="numeric" maxlength="10" required>
     </div>
 
-    <input type="tel" id="phone" placeholder="Phone Number" autocomplete="tel" inputmode="tel" required>
-
-    <input type="email" id="email" placeholder="Email Address" autocomplete="email" required>
-
+    <input type="tel" id="phone" name="Phone" placeholder="Phone Number" autocomplete="tel" inputmode="tel" required>
+    <input type="email" name="Email" placeholder="Email Address" autocomplete="email" required>
 
     <div class="section-title">Dogs</div>
 
-    <input type="number" id="dogs" placeholder="How many dogs?" min="1" step="1" inputmode="numeric" required>
+    <input type="number" id="dogs" name="Number of Dogs" placeholder="How many dogs?" min="1" step="1" inputmode="numeric" required>
 
     <div id="dogNames"></div>
 
-    <textarea id="allergies" placeholder="Dog Allergies or Treat Restrictions (optional)"></textarea>
-
+    <textarea name="Dog Allergies" placeholder="Dog allergies or treat restrictions (optional)"></textarea>
 
     <div class="section-title">Service Details</div>
 
-    <select id="frequency" required>
-      <option value="">Cleanup Frequency</option>
-      <option value="Weekly">Weekly</option>
+    <select id="frequency" name="Service Frequency" required>
+      <option value="">Service Frequency</option>
       <option value="2x per week">2x per week</option>
+      <option value="Weekly">Weekly</option>
       <option value="Bi-weekly">Bi-weekly</option>
-      <option value="Winter Thaw">Winter Thaw</option>
       <option value="One time cleanup">One time cleanup</option>
+      <option value="Winter Thaw">Winter Thaw</option>
     </select>
 
-    <select id="serviceType" required>
+    <select id="serviceType" name="Service Type" required>
       <option value="">Service Type</option>
       <option value="Frontyard Service">Frontyard Service</option>
       <option value="Backyard Service">Backyard Service</option>
       <option value="Both">Both</option>
     </select>
 
-    <select id="dogBehavior" required>
+    <select id="dogBehavior" name="Dog Behavior" required>
       <option value="">Dog Behavior</option>
       <option value="Dog is friendly">Dog is friendly</option>
       <option value="Dog is aggressive">Dog is aggressive</option>
       <option value="Dog is vocal">Dog is vocal</option>
     </select>
 
-    <select id="gateType">
-      <option value="">Gate Type </option>
+    <select name="Gate Type">
+      <option value="">Gate Type (optional)</option>
       <option value="Unlocked Gate">Unlocked Gate</option>
       <option value="Latch Gate">Latch Gate</option>
       <option value="Combination Lock">Combination Lock</option>
@@ -161,19 +196,36 @@ required>
       <option value="No Gate">No Gate</option>
     </select>
 
-    <textarea id="notes" placeholder="Comments (example: gate code, dog is outside at certain times)"></textarea>
+    <textarea name="Comments" placeholder="Comments (front & backyard cleanup needed, gate code, dog schedule, toys in yard, etc)"></textarea>
 
-    <button type="submit">Submit</button>
+    <!-- Live estimate box -->
+    <div class="estimate" id="estimateBox">
+      <div class="big" id="estimateBig">Estimated price: —</div>
+      <div class="small" id="estimateSmall">
+        Select number of dogs + service frequency to see an estimate.
+      </div>
+    </div>
+
+    <!-- This hidden field sends the estimate to you too -->
+    <input type="hidden" id="estimateField" name="Estimated Price (shown to customer)">
+
+    <button type="submit" id="submitBtn">Submit</button>
+
+    <div id="statusSuccess" class="status success">✅ Request sent! We’ll contact you shortly.</div>
+    <div id="statusError" class="status error">❌ Something went wrong sending your request. Please try again.</div>
 
     <div class="small-note">
-      Submitting opens your email app with the message pre-filled.
+      This submits directly (no email app). If it fails, refresh and try again.
     </div>
 
   </form>
+
 </div>
 
 <script>
-  // --- Dog name generator ---
+  // ----------------------------
+  // DOG NAME GENERATOR
+  // ----------------------------
   const dogInput = document.getElementById("dogs");
   const dogNamesDiv = document.getElementById("dogNames");
 
@@ -186,17 +238,22 @@ required>
       const input = document.createElement("input");
       input.type = "text";
       input.placeholder = `Dog ${i} Name`;
+      input.name = `Dog ${i} Name`;
       input.className = "dogName";
       input.required = true;
       input.autocomplete = "off";
       dogNamesDiv.appendChild(input);
     }
   }
-  dogInput.addEventListener("input", renderDogNames);
+  dogInput.addEventListener("input", () => {
+    renderDogNames();
+    updateEstimate();
+  });
 
-  // --- Phone formatting (US) ---
+  // ----------------------------
+  // PHONE FORMATTING (US)
+  // ----------------------------
   const phoneInput = document.getElementById("phone");
-
   function formatUSPhone(digits){
     const d = digits.slice(0,10);
     if (d.length === 0) return "";
@@ -204,67 +261,133 @@ required>
     if (d.length < 7) return "(" + d.slice(0,3) + ") " + d.slice(3);
     return "(" + d.slice(0,3) + ") " + d.slice(3,6) + "-" + d.slice(6);
   }
-
   phoneInput.addEventListener("input", () => {
     const digits = phoneInput.value.replace(/\D/g, "");
     phoneInput.value = formatUSPhone(digits);
   });
 
-  // --- Submit / mailto ---
-  document.getElementById("form").addEventListener("submit", function(e){
+  // ----------------------------
+  // ZIP CLEANUP (helps iOS autofill)
+  // ----------------------------
+  const zipInput = document.getElementById("zip");
+  zipInput.addEventListener("input", () => {
+    let v = zipInput.value.replace(/[^\d-]/g, "");
+    if (v.length > 5) v = v.replace(/^(\d{5})(\d+)/, "$1-$2");
+    zipInput.value = v.slice(0, 10);
+  });
+
+  // ----------------------------
+  // LIVE PRICE ESTIMATE (EDIT THESE NUMBERS)
+  // ----------------------------
+  const frequencyEl = document.getElementById("frequency");
+  const serviceTypeEl = document.getElementById("serviceType");
+
+  const estimateBig = document.getElementById("estimateBig");
+  const estimateSmall = document.getElementById("estimateSmall");
+  const estimateField = document.getElementById("estimateField");
+
+  // Base pricing by frequency (example numbers — change to yours)
+  const BASE_PRICE = {
+    "2x per week": 25,
+    "Weekly": 18,
+    "Bi-weekly": 28,
+    "One time cleanup": 65,
+    "Winter Thaw": 75
+  };
+
+  // Add-on per additional dog (example)
+  const PER_DOG_ADDON = 4;
+
+  // Optional multiplier by service type (example)
+  const SERVICE_MULT = {
+    "Frontyard Service": 1.0,
+    "Backyard Service": 1.0,
+    "Both": 1.15
+  };
+
+  function dollars(n){
+    return "$" + Math.round(n);
+  }
+
+  function updateEstimate(){
+    const dogs = parseInt(dogInput.value, 10);
+    const freq = frequencyEl.value;
+    const svc = serviceTypeEl.value;
+
+    if (!Number.isFinite(dogs) || dogs <= 0 || !freq){
+      estimateBig.textContent = "Estimated price: —";
+      estimateSmall.textContent = "Select number of dogs + service frequency to see an estimate.";
+      estimateField.value = "";
+      return;
+    }
+
+    const base = BASE_PRICE[freq] ?? 0;
+    const dogAddon = Math.max(0, dogs - 1) * PER_DOG_ADDON;
+    const mult = SERVICE_MULT[svc] ?? 1.0;
+
+    const est = (base + dogAddon) * mult;
+
+    // Friendly phrasing by type
+    const label = (freq === "One time cleanup" || freq === "Winter Thaw")
+      ? "Estimated visit price"
+      : "Estimated recurring price";
+
+    estimateBig.textContent = `${label}: ${dollars(est)}`;
+    estimateSmall.textContent = "Estimate only — final price may change after yard condition / first visit.";
+    estimateField.value = `${label}: ${dollars(est)} (dogs=${dogs}, freq=${freq}, service=${svc || "N/A"})`;
+  }
+
+  frequencyEl.addEventListener("change", updateEstimate);
+  serviceTypeEl.addEventListener("change", updateEstimate);
+
+  // ----------------------------
+  // FORMSPREE BACKGROUND SUBMIT (AJAX)
+  // ----------------------------
+  const form = document.getElementById("form");
+  const submitBtn = document.getElementById("submitBtn");
+  const statusSuccess = document.getElementById("statusSuccess");
+  const statusError = document.getElementById("statusError");
+
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const firstName = document.getElementById("firstName").value.trim();
-    const lastName  = document.getElementById("lastName").value.trim();
+    statusSuccess.style.display = "none";
+    statusError.style.display = "none";
 
-    const streetAddress = document.getElementById("streetAddress").value.trim();
-    const town = document.getElementById("town").value.trim();
-    const zip = document.getElementById("zip").value.trim();
+    // Keep estimate synced
+    updateEstimate();
 
-    const phone = document.getElementById("phone").value.trim();
-    const email = document.getElementById("email").value.trim();
+    // Disable + loading
+    submitBtn.disabled = true;
+    const oldText = submitBtn.textContent;
+    submitBtn.textContent = "Sending...";
 
-    const dogs = document.getElementById("dogs").value.trim();
-    const allergies = document.getElementById("allergies").value.trim();
+    try{
+      const formData = new FormData(form);
 
-    const frequency = document.getElementById("frequency").value;
-    const serviceType = document.getElementById("serviceType").value;
-    const dogBehavior = document.getElementById("dogBehavior").value;
+      const res = await fetch(form.action, {
+        method: "POST",
+        body: formData,
+        headers: { "Accept": "application/json" }
+      });
 
-    const gateType = document.getElementById("gateType").value || "N/A";
-    const notes = document.getElementById("notes").value.trim() || "N/A";
-
-    const dogNames = Array.from(document.querySelectorAll(".dogName"))
-      .map(el => el.value.trim())
-      .filter(Boolean);
-
-    const to = "sammus422@gmail.com";
-    const subject = "DogWaste Removal Inquiry";
-
-    const bodyLines = [
-      `First Name: ${firstName}`,
-      `Last Name: ${lastName}`,
-      `Street Address: ${streetAddress}`,
-      `Town / City: ${town}`,
-      `ZIP Code: ${zip}`,
-      `Phone: ${phone}`,
-      `Email: ${email}`,
-      `Dogs: ${dogs}`,
-      `Dog Names: ${dogNames.length ? dogNames.join(", ") : "N/A"}`,
-      `Allergies / Treat Restrictions: ${allergies || "N/A"}`,
-      `Cleanup Frequency: ${frequency}`,
-      `Service Type: ${serviceType}`,
-      `Dog Behavior: ${dogBehavior}`,
-      `Gate Type: ${gateType}`,
-      `Comments: ${notes}`
-    ];
-
-    const mailto =
-      `mailto:${encodeURIComponent(to)}` +
-      `?subject=${encodeURIComponent(subject)}` +
-      `&body=${encodeURIComponent(bodyLines.join("\n"))}`;
-
-    window.location.href = mailto;
+      if (res.ok){
+        statusSuccess.style.display = "block";
+        form.reset();
+        dogNamesDiv.innerHTML = "";
+        estimateBig.textContent = "Estimated price: —";
+        estimateSmall.textContent = "Select number of dogs + service frequency to see an estimate.";
+        estimateField.value = "";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        statusError.style.display = "block";
+      }
+    } catch(err){
+      statusError.style.display = "block";
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = oldText;
+    }
   });
 </script>
 
