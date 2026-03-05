@@ -6,253 +6,268 @@
 <title>SCOOP</title>
 
 <style>
+  body{
+    font-family: Arial, sans-serif;
+    background:#f4f4f4;
+    text-align:center;
+    padding:40px;
+    margin:0;
+  }
 
-body{
-font-family: Arial, sans-serif;
-background:#f4f4f4;
-text-align:center;
-padding:40px;
-margin:0;
-}
+  .container{
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    max-width:600px;
+    margin:auto;
+    box-shadow:0 6px 22px rgba(0,0,0,.08);
+  }
 
-.container{
-background:white;
-padding:30px;
-border-radius:10px;
-max-width:600px;
-margin:auto;
-box-shadow:0 6px 22px rgba(0,0,0,.08);
-}
+  img{
+    max-width:100%;
+    height:auto;
+    margin-bottom:30px;
+  }
 
-img{
-max-width:100%;
-margin-bottom:30px;
-}
+  input, select, textarea{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    font-size:16px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    box-sizing:border-box;
+  }
 
-input, select, textarea{
-width:100%;
-padding:12px;
-margin:10px 0;
-font-size:16px;
-border:1px solid #ddd;
-border-radius:10px;
-}
+  textarea{
+    resize:vertical;
+    min-height:100px;
+  }
 
-textarea{
-resize:vertical;
-min-height:100px;
-}
+  button{
+    background:#1e2f44;
+    color:white;
+    border:none;
+    padding:15px;
+    font-size:18px;
+    width:100%;
+    cursor:pointer;
+    border-radius:10px;
+  }
 
-button{
-background:#1e2f44;
-color:white;
-border:none;
-padding:15px;
-font-size:18px;
-width:100%;
-cursor:pointer;
-border-radius:10px;
-}
+  button:hover{ opacity:.9; }
 
-button:hover{
-opacity:.9;
-}
+  .small-note{
+    color:#666;
+    font-size:13px;
+    margin-top:6px;
+    line-height:1.35;
+  }
 
-.small-note{
-color:#666;
-font-size:13px;
-margin-top:6px;
-}
+  .section-title{
+    margin-top:22px;
+    font-weight:bold;
+    color:#1e2f44;
+    text-align:left;
+  }
 
-.section-title{
-margin-top:25px;
-font-weight:bold;
-color:#1e2f44;
-}
+  .row{
+    display:flex;
+    gap:10px;
+  }
+  .row > *{ flex:1; }
 
+  @media (max-width:520px){
+    .row{ flex-direction:column; gap:0; }
+  }
 </style>
 </head>
 
 <body>
-
 <div class="container">
 
-<img src="scoop-logo.PNG">
+  <img src="scoop-logo.PNG" alt="SCOOP Logo">
 
-<h2>DogWaste Cleanup Questionnaire</h2>
+  <h2>DogWaste Removal Inquiry</h2>
 
-<form id="form" autocomplete="on">
+  <form id="form" autocomplete="on">
 
-<div class="section-title">Customer Info</div>
+    <div class="section-title">Customer Info</div>
 
-<input type="text" id="clientName" placeholder="Client Name" autocomplete="name" required>
+    <div class="row">
+      <input type="text" id="firstName" placeholder="First Name" autocomplete="given-name" required>
+      <input type="text" id="lastName" placeholder="Last Name" autocomplete="family-name" required>
+    </div>
 
-<input type="text" id="streetAddress" placeholder="Street Address" autocomplete="street-address" required>
+    <input type="text" id="streetAddress" placeholder="Street Address" autocomplete="street-address" required>
 
-<input type="text" id="town" placeholder="Town / City" autocomplete="address-level2" required>
+    <div class="row">
+      <input type="text" id="town" placeholder="Town / City" autocomplete="address-level2" required>
+      <input
+        type="text"
+        id="zip"
+        placeholder="ZIP Code"
+        autocomplete="postal-code"
+        inputmode="numeric"
+        pattern="\\d{5}(-\\d{4})?"
+        title="Enter a valid ZIP code (e.g., 60465 or 60465-1234)"
+        required
+      >
+    </div>
 
-<input type="text" id="zip" placeholder="ZIP Code" autocomplete="postal-code" required>
+    <input type="tel" id="phone" placeholder="Phone Number" autocomplete="tel" inputmode="tel" required>
 
-<input type="tel" id="phone" placeholder="Phone Number" autocomplete="tel" required>
-
-<input type="email" id="email" placeholder="Email Address" autocomplete="email" required>
-
-
-<div class="section-title">Dogs</div>
-
-<input type="number" id="dogs" placeholder="How many dogs?" min="1" required>
-
-<div id="dogNames"></div>
-
-<textarea id="allergies" placeholder="Dog Allergies or Treat Restrictions"></textarea>
-
-
-<div class="section-title">Service Details</div>
-
-<select id="frequency" required>
-<option value="">Cleanup Frequency</option>
-<option>Weekly</option>
-<option>2x per week</option>
-<option>Bi-weekly</option>
-<option>One time cleanup</option>
-</select>
+    <input type="email" id="email" placeholder="Email Address" autocomplete="email" required>
 
 
-<select id="yardAccess" required>
-<option value="">Yard Access</option>
-<option>Front Yard</option>
-<option>Backyard</option>
-<option>Front & Backyard</option>
-</select>
+    <div class="section-title">Dogs</div>
+
+    <input type="number" id="dogs" placeholder="How many dogs?" min="1" step="1" inputmode="numeric" required>
+
+    <div id="dogNames"></div>
+
+    <textarea id="allergies" placeholder="Dog Allergies or Treat Restrictions (optional)"></textarea>
 
 
-<select id="gateType">
-<option value="">Gate Type</option>
-<option>Unlocked Gate</option>
-<option>Latch Gate</option>
-<option>Combination Lock</option>
-<option>Keypad Lock</option>
-<option>No Gate</option>
-</select>
+    <div class="section-title">Service Details</div>
 
+    <select id="frequency" required>
+      <option value="">Cleanup Frequency</option>
+      <option value="Weekly">Weekly</option>
+      <option value="2x per week">2x per week</option>
+      <option value="Bi-weekly">Bi-weekly</option>
+      <option value="Winter Thaw">Winter Thaw</option>
+      <option value="One time cleanup">One time cleanup</option>
+    </select>
 
-<textarea id="notes" placeholder="Additional notes (example: front & backyard cleanup needed, aggressive dog, toys in yard, etc.)"></textarea>
+    <select id="serviceType" required>
+      <option value="">Service Type</option>
+      <option value="Frontyard Service">Frontyard Service</option>
+      <option value="Backyard Service">Backyard Service</option>
+      <option value="Both">Both</option>
+    </select>
 
+    <select id="dogBehavior" required>
+      <option value="">Dog Behavior</option>
+      <option value="Dog is friendly">Dog is friendly</option>
+      <option value="Dog is aggressive">Dog is aggressive</option>
+      <option value="Dog is vocal">Dog is vocal</option>
+    </select>
 
-<button type="submit">Submit</button>
+    <select id="gateType">
+      <option value="">Gate Type (optional)</option>
+      <option value="Unlocked Gate">Unlocked Gate</option>
+      <option value="Latch Gate">Latch Gate</option>
+      <option value="Combination Lock">Combination Lock</option>
+      <option value="Keypad Lock">Keypad Lock</option>
+      <option value="No Gate">No Gate</option>
+    </select>
 
-<div class="small-note">
-Submitting opens your email with the request pre-filled.
-</div>
+    <textarea id="notes" placeholder="Comments (example: front & backyard cleanup needed, gate code, dog is outside at certain times, toys in yard, etc.)"></textarea>
 
-</form>
+    <button type="submit">Submit</button>
 
+    <div class="small-note">
+      Submitting opens your email app with the message pre-filled.
+    </div>
+
+  </form>
 </div>
 
 <script>
+  // --- Dog name generator ---
+  const dogInput = document.getElementById("dogs");
+  const dogNamesDiv = document.getElementById("dogNames");
 
-const dogInput=document.getElementById("dogs")
-const dogNamesDiv=document.getElementById("dogNames")
+  function renderDogNames(){
+    dogNamesDiv.innerHTML = "";
+    const count = parseInt(dogInput.value, 10);
+    if (!Number.isFinite(count) || count <= 0) return;
 
-function renderDogNames(){
+    for (let i = 1; i <= count; i++){
+      const input = document.createElement("input");
+      input.type = "text";
+      input.placeholder = `Dog ${i} Name`;
+      input.className = "dogName";
+      input.required = true;
+      input.autocomplete = "off";
+      dogNamesDiv.appendChild(input);
+    }
+  }
+  dogInput.addEventListener("input", renderDogNames);
 
-dogNamesDiv.innerHTML=""
+  // --- Phone formatting (US) ---
+  const phoneInput = document.getElementById("phone");
 
-let count=parseInt(dogInput.value)
+  function formatUSPhone(digits){
+    const d = digits.slice(0,10);
+    if (d.length === 0) return "";
+    if (d.length < 4) return "(" + d;
+    if (d.length < 7) return "(" + d.slice(0,3) + ") " + d.slice(3);
+    return "(" + d.slice(0,3) + ") " + d.slice(3,6) + "-" + d.slice(6);
+  }
 
-if(!count || count<=0)return
+  phoneInput.addEventListener("input", () => {
+    const digits = phoneInput.value.replace(/\D/g, "");
+    phoneInput.value = formatUSPhone(digits);
+  });
 
-for(let i=1;i<=count;i++){
+  // --- Submit / mailto ---
+  document.getElementById("form").addEventListener("submit", function(e){
+    e.preventDefault();
 
-let input=document.createElement("input")
-input.type="text"
-input.placeholder="Dog "+i+" Name"
-input.className="dogName"
-input.required=true
+    const firstName = document.getElementById("firstName").value.trim();
+    const lastName  = document.getElementById("lastName").value.trim();
 
-dogNamesDiv.appendChild(input)
+    const streetAddress = document.getElementById("streetAddress").value.trim();
+    const town = document.getElementById("town").value.trim();
+    const zip = document.getElementById("zip").value.trim();
 
-}
+    const phone = document.getElementById("phone").value.trim();
+    const email = document.getElementById("email").value.trim();
 
-}
+    const dogs = document.getElementById("dogs").value.trim();
+    const allergies = document.getElementById("allergies").value.trim();
 
-dogInput.addEventListener("input",renderDogNames)
+    const frequency = document.getElementById("frequency").value;
+    const serviceType = document.getElementById("serviceType").value;
+    const dogBehavior = document.getElementById("dogBehavior").value;
 
+    const gateType = document.getElementById("gateType").value || "N/A";
+    const notes = document.getElementById("notes").value.trim() || "N/A";
 
+    const dogNames = Array.from(document.querySelectorAll(".dogName"))
+      .map(el => el.value.trim())
+      .filter(Boolean);
 
-const phoneInput=document.getElementById("phone")
+    const to = "sammus422@gmail.com";
+    const subject = "DogWaste Removal Inquiry";
 
-phoneInput.addEventListener("input",function(){
+    const bodyLines = [
+      `First Name: ${firstName}`,
+      `Last Name: ${lastName}`,
+      `Street Address: ${streetAddress}`,
+      `Town / City: ${town}`,
+      `ZIP Code: ${zip}`,
+      `Phone: ${phone}`,
+      `Email: ${email}`,
+      `Dogs: ${dogs}`,
+      `Dog Names: ${dogNames.length ? dogNames.join(", ") : "N/A"}`,
+      `Allergies / Treat Restrictions: ${allergies || "N/A"}`,
+      `Cleanup Frequency: ${frequency}`,
+      `Service Type: ${serviceType}`,
+      `Dog Behavior: ${dogBehavior}`,
+      `Gate Type: ${gateType}`,
+      `Comments: ${notes}`
+    ];
 
-let digits=this.value.replace(/\D/g,'')
+    const mailto =
+      `mailto:${encodeURIComponent(to)}` +
+      `?subject=${encodeURIComponent(subject)}` +
+      `&body=${encodeURIComponent(bodyLines.join("\n"))}`;
 
-if(digits.length>10)digits=digits.slice(0,10)
-
-let formatted=''
-
-if(digits.length>0){
-formatted='('+digits.substring(0,3)
-}
-
-if(digits.length>=4){
-formatted=formatted+') '+digits.substring(3,6)
-}
-
-if(digits.length>=7){
-formatted=formatted+'-'+digits.substring(6,10)
-}
-
-this.value=formatted
-
-})
-
-
-
-document.getElementById("form").addEventListener("submit",function(e){
-
-e.preventDefault()
-
-let clientName=document.getElementById("clientName").value
-let streetAddress=document.getElementById("streetAddress").value
-let town=document.getElementById("town").value
-let zip=document.getElementById("zip").value
-let phone=document.getElementById("phone").value
-let email=document.getElementById("email").value
-let dogs=document.getElementById("dogs").value
-let allergies=document.getElementById("allergies").value
-let frequency=document.getElementById("frequency").value
-let yardAccess=document.getElementById("yardAccess").value
-let gateType=document.getElementById("gateType").value
-let notes=document.getElementById("notes").value
-
-let dogNames=[]
-
-document.querySelectorAll(".dogName").forEach(function(el){
-dogNames.push(el.value)
-})
-
-let subject="SCOOP Cleanup Request"
-
-let body=
-"Client Name: "+clientName+"%0D%0A"+
-"Street Address: "+streetAddress+"%0D%0A"+
-"Town: "+town+"%0D%0A"+
-"ZIP Code: "+zip+"%0D%0A"+
-"Phone: "+phone+"%0D%0A"+
-"Email: "+email+"%0D%0A"+
-"Dogs: "+dogs+"%0D%0A"+
-"Dog Names: "+dogNames.join(", ")+"%0D%0A"+
-"Allergies: "+allergies+"%0D%0A"+
-"Frequency: "+frequency+"%0D%0A"+
-"Yard Access: "+yardAccess+"%0D%0A"+
-"Gate Type: "+gateType+"%0D%0A"+
-"Notes: "+notes
-
-window.location.href=
-"mailto:sammus422@gmail.com?subject="+subject+"&body="+body
-
-})
-
+    window.location.href = mailto;
+  });
 </script>
 
 </body>
