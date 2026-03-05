@@ -1,304 +1,335 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SCOOP</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SCOOP</title>
 
-<style>
-  body{font-family:Arial,sans-serif;background:#f4f4f4;text-align:center;padding:40px;margin:0;}
-  .container{background:#fff;padding:30px;border-radius:10px;max-width:600px;margin:auto;box-shadow:0 6px 22px rgba(0,0,0,.08);}
-  img{max-width:100%;height:auto;margin-bottom:20px;}
-  input,select,textarea{width:100%;padding:12px;margin:10px 0;font-size:16px;border:1px solid #ddd;border-radius:10px;box-sizing:border-box;}
-  textarea{resize:vertical;min-height:90px;}
-  button{background:#1e2f44;color:#fff;border:none;padding:15px;font-size:18px;width:100%;cursor:pointer;border-radius:10px;}
-  button:hover{opacity:.92;}
-  button:disabled{opacity:.6;cursor:not-allowed;}
-  .section-title{margin-top:18px;font-weight:bold;color:#1e2f44;text-align:left;}
-  .row{display:flex;gap:10px;}
-  .row>*{flex:1;}
-  @media (max-width:520px){.row{flex-direction:column;gap:0;}}
-  .estimate{text-align:left;background:#f5f8ff;border:1px solid #d8e2ff;border-radius:10px;padding:12px;margin:12px 0 6px;}
-  .estimate .big{font-size:18px;font-weight:800;color:#1e2f44;margin-bottom:4px;}
-  .estimate .small{font-size:13px;color:#4a5568;line-height:1.35;}
-  .status{display:none;margin-top:12px;padding:12px;border-radius:10px;text-align:left;font-size:14px;line-height:1.35;}
-  .status.error{background:#fdecec;color:#b42318;border:1px solid #f5b5b0;}
-</style>
+  <style>
+    body{font-family:Arial,sans-serif;background:#f4f4f4;text-align:center;padding:40px;margin:0;}
+    .container{background:#fff;padding:30px;border-radius:10px;max-width:600px;margin:auto;box-shadow:0 6px 22px rgba(0,0,0,.08);}
+    img{max-width:100%;height:auto;margin-bottom:20px;}
+    input,select,textarea{width:100%;padding:12px;margin:10px 0;font-size:16px;border:1px solid #ddd;border-radius:10px;box-sizing:border-box;}
+    textarea{resize:vertical;min-height:90px;}
+    button{background:#1e2f44;color:#fff;border:none;padding:15px;font-size:18px;width:100%;cursor:pointer;border-radius:10px;}
+    button:hover{opacity:.92;}
+    button:disabled{opacity:.6;cursor:not-allowed;}
+    .section-title{margin-top:18px;font-weight:bold;color:#1e2f44;text-align:left;}
+    .row{display:flex;gap:10px;}
+    .row>*{flex:1;}
+    @media (max-width:520px){.row{flex-direction:column;gap:0;}}
+    .estimate{text-align:left;background:#f5f8ff;border:1px solid #d8e2ff;border-radius:10px;padding:12px;margin:12px 0 6px;}
+    .estimate .big{font-size:18px;font-weight:800;color:#1e2f44;margin-bottom:4px;}
+    .estimate .small{font-size:13px;color:#4a5568;line-height:1.35;}
+    .status{display:none;margin-top:12px;padding:12px;border-radius:10px;text-align:left;font-size:14px;line-height:1.35;}
+    .status.error{background:#fdecec;color:#b42318;border:1px solid #f5b5b0;}
+  </style>
 </head>
 
 <body>
-<div class="container">
-  <img src="scoop-logo.PNG" alt="SCOOP Logo">
-  <h2>DogWaste Removal Inquiry</h2>
+  <div class="container">
+    <img src="scoop-logo.PNG" alt="SCOOP Logo" />
+    <h2>DogWaste Removal Inquiry</h2>
 
-  <form id="form" autocomplete="on">
-    <div class="section-title">Customer Info</div>
+    <form id="form" autocomplete="on">
+      <div class="section-title">Customer Info</div>
 
-    <div class="row">
-      <input type="text" id="firstName" placeholder="First Name" autocomplete="given-name" required>
-      <input type="text" id="lastName" placeholder="Last Name" autocomplete="family-name" required>
-    </div>
+      <div class="row">
+        <input type="text" id="firstName" name="firstName" placeholder="First Name" autocomplete="given-name" required />
+        <input type="text" id="lastName"  name="lastName"  placeholder="Last Name"  autocomplete="family-name" required />
+      </div>
 
-    <input type="text" id="streetAddress" placeholder="Street Address" autocomplete="street-address" required>
+      <input type="text" id="streetAddress" name="streetAddress" placeholder="Street Address" autocomplete="street-address" required />
 
-    <div class="row">
-      <input type="text" id="town" placeholder="Town / City" autocomplete="address-level2" required>
-      <input type="text" id="zip" placeholder="ZIP Code" autocomplete="postal-code" inputmode="numeric" maxlength="10" required>
-    </div>
+      <div class="row">
+        <input type="text" id="town" name="town" placeholder="Town / City" autocomplete="address-level2" required />
+        <input type="text" id="zip"  name="zip"  placeholder="ZIP Code" autocomplete="postal-code" inputmode="numeric" maxlength="10" required />
+      </div>
 
-    <input type="tel" id="phone" placeholder="Phone Number" autocomplete="tel" inputmode="tel" required>
-    <input type="email" id="email" placeholder="Email Address" autocomplete="email" required>
+      <input type="tel"   id="phone" name="phone" placeholder="Phone Number" autocomplete="tel" inputmode="tel" required />
+      <input type="email" id="email" name="email" placeholder="Email Address" autocomplete="email" required />
 
-    <div class="section-title">Dogs</div>
+      <div class="section-title">Dogs</div>
 
-    <input type="number" id="dogs" placeholder="How many dogs?" min="1" step="1" inputmode="numeric" required>
-    <div id="dogNames"></div>
+      <input type="number" id="dogs" name="dogs" placeholder="How many dogs?" min="1" step="1" inputmode="numeric" required />
+      <div id="dogNames"></div>
 
-    <textarea id="allergies" placeholder="Dog allergies or treat restrictions (optional)"></textarea>
+      <!-- hidden field that will hold "Dog 1, Dog 2, ..." as a CSV -->
+      <input type="hidden" id="dogNamesField" name="dogNames" value="" />
 
-    <div class="section-title">Service Details</div>
+      <textarea id="allergies" name="allergies" placeholder="Dog allergies or treat restrictions (optional)"></textarea>
 
-    <select id="frequency" required>
-      <option value="">Service Frequency</option>
-      <option value="2x per week">2x per week</option>
-      <option value="Weekly">Weekly</option>
-      <option value="Bi-weekly">Bi-weekly</option>
-      <option value="One time cleanup">One time cleanup</option>
-      <option value="Winter Thaw">Winter Thaw</option>
-    </select>
+      <div class="section-title">Service Details</div>
 
-    <select id="serviceType" required>
-      <option value="">Service Type</option>
-      <option value="Frontyard Service">Frontyard Service</option>
-      <option value="Backyard Service">Backyard Service</option>
-      <option value="Both">Both</option>
-    </select>
+      <select id="frequency" name="frequency" required>
+        <option value="">Service Frequency</option>
+        <option value="2x per week">2x per week</option>
+        <option value="Weekly">Weekly</option>
+        <option value="Bi-weekly">Bi-weekly</option>
+        <option value="One time cleanup">One time cleanup</option>
+        <option value="Winter Thaw">Winter Thaw</option>
+      </select>
 
-    <select id="dogBehavior" required>
-      <option value="">Dog Behavior</option>
-      <option value="Dog is friendly">Dog is friendly</option>
-      <option value="Dog is aggressive">Dog is aggressive</option>
-      <option value="Dog is vocal">Dog is vocal</option>
-    </select>
+      <select id="serviceType" name="serviceType" required>
+        <option value="">Service Type</option>
+        <option value="Frontyard Service">Frontyard Service</option>
+        <option value="Backyard Service">Backyard Service</option>
+        <option value="Both">Both</option>
+      </select>
 
-    <select id="gateType">
-      <option value="">Gate Type (optional)</option>
-      <option value="Unlocked Gate">Unlocked Gate</option>
-      <option value="Latch Gate">Latch Gate</option>
-      <option value="Combination Lock">Combination Lock</option>
-      <option value="Keypad Lock">Keypad Lock</option>
-      <option value="No Gate">No Gate</option>
-    </select>
+      <select id="dogBehavior" name="dogBehavior" required>
+        <option value="">Dog Behavior</option>
+        <option value="Dog is friendly">Dog is friendly</option>
+        <option value="Dog is aggressive">Dog is aggressive</option>
+        <option value="Dog is vocal">Dog is vocal</option>
+      </select>
 
-    <textarea id="comments" placeholder="Comments (front & backyard cleanup needed, gate code, dog schedule, toys in yard, etc)"></textarea>
+      <select id="gateType" name="gateType">
+        <option value="">Gate Type (optional)</option>
+        <option value="Unlocked Gate">Unlocked Gate</option>
+        <option value="Latch Gate">Latch Gate</option>
+        <option value="Combination Lock">Combination Lock</option>
+        <option value="Keypad Lock">Keypad Lock</option>
+        <option value="No Gate">No Gate</option>
+      </select>
 
-    <div class="estimate">
-      <div class="big" id="estimateBig">Estimated price: —</div>
-      <div class="small" id="estimateSmall">Choose number of dogs + service frequency to see an estimate.</div>
-    </div>
+      <textarea id="comments" name="comments" placeholder="Comments (front & backyard cleanup needed, gate code, dog schedule, toys in yard, etc)"></textarea>
 
-    <button type="submit" id="submitBtn">Submit</button>
-    <div id="statusError" class="status error">❌ Submission failed (network or validation). Please try again.</div>
+      <div class="estimate">
+        <div class="big" id="estimateBig">Estimated price: —</div>
+        <div class="small" id="estimateSmall">Choose number of dogs + service frequency to see an estimate.</div>
+      </div>
 
-    <!-- Honeypot (bots will fill; humans never see) -->
-    <input type="text" id="company" style="display:none" tabindex="-1" autocomplete="off">
-  </form>
-</div>
+      <!-- hidden estimate (Apps Script expects estimate) -->
+      <input type="hidden" id="estimateField" name="estimate" value="" />
 
-<script>
-  // ----------------------------
-  // CONFIG
-  // ----------------------------
-  const ENDPOINT = "https://script.google.com/macros/s/AKfycbyOUM0pVf5alFxcu8LeZ8eK9Lo6F38O37GlPyYKLYMn7WURzXiuwiZ0UsCP-i5ruF4y/exec";
-  const SUCCESS_URL = "https://kenatskyline.github.io/Scoop/success.html";
-  const ERROR_URL   = "https://kenatskyline.github.io/Scoop/error.html";
+      <button type="submit" id="submitBtn">Submit</button>
+      <div id="statusError" class="status error">❌ Submission failed (network or validation). Please try again.</div>
 
-  // Timestamp for anti-spam timing check
-  const openedAt = Date.now();
+      <!-- REQUIRED BY YOUR APPS SCRIPT SPAM CHECKS -->
+      <input type="hidden" id="openedAt" name="openedAt" value="" />
+      <input type="hidden" id="userAgent" name="userAgent" value="" />
 
-  // ----------------------------
-  // DOG NAME INPUTS
-  // ----------------------------
-  const dogInput = document.getElementById("dogs");
-  const dogNamesDiv = document.getElementById("dogNames");
+      <!-- Honeypot (bots will fill; humans never see). MUST HAVE name="company" for your script -->
+      <input type="text" id="company" name="company" style="display:none" tabindex="-1" autocomplete="off" />
+    </form>
+  </div>
 
-  function renderDogNames(){
-    dogNamesDiv.innerHTML = "";
-    const count = parseInt(dogInput.value, 10);
-    if (!Number.isFinite(count) || count <= 0) return;
+  <script>
+    // ----------------------------
+    // CONFIG
+    // ----------------------------
+    const ENDPOINT    = "https://script.google.com/macros/s/AKfycbyOUM0pVf5alFxcu8LeZ8eK9Lo6F38O37GlPyYKLYMn7WURzXiuwiZ0UsCP-i5ruF4y/exec";
+    const SUCCESS_URL = "https://kenatskyline.github.io/Scoop/success.html";
+    const ERROR_URL   = "https://kenatskyline.github.io/Scoop/error.html";
 
-    for (let i = 1; i <= count; i++){
-      const input = document.createElement("input");
-      input.type = "text";
-      input.placeholder = `Dog ${i} Name`;
-      input.className = "dogName";
-      input.required = true;
-      input.autocomplete = "off";
-      dogNamesDiv.appendChild(input);
+    // ----------------------------
+    // FORM ELEMENTS
+    // ----------------------------
+    const form        = document.getElementById("form");
+    const submitBtn   = document.getElementById("submitBtn");
+    const statusError = document.getElementById("statusError");
+
+    const dogInput    = document.getElementById("dogs");
+    const dogNamesDiv = document.getElementById("dogNames");
+    const dogNamesField = document.getElementById("dogNamesField");
+
+    const phoneInput  = document.getElementById("phone");
+    const zipInput    = document.getElementById("zip");
+
+    const frequencyEl   = document.getElementById("frequency");
+    const serviceTypeEl = document.getElementById("serviceType");
+    const estimateBig   = document.getElementById("estimateBig");
+    const estimateSmall = document.getElementById("estimateSmall");
+    const estimateField = document.getElementById("estimateField");
+
+    // Hidden spam fields expected by Apps Script
+    const openedAtField = document.getElementById("openedAt");
+    const userAgentField = document.getElementById("userAgent");
+
+    // ----------------------------
+    // SPAM TIMING + UA INIT (REQUIRED)
+    // ----------------------------
+    openedAtField.value = String(Date.now());
+    userAgentField.value = navigator.userAgent;
+
+    // ----------------------------
+    // DOG NAME INPUTS
+    // ----------------------------
+    function renderDogNames(){
+      dogNamesDiv.innerHTML = "";
+      const count = parseInt(dogInput.value, 10);
+      if (!Number.isFinite(count) || count <= 0) {
+        dogNamesField.value = "";
+        return;
+      }
+
+      for (let i = 1; i <= count; i++){
+        const input = document.createElement("input");
+        input.type = "text";
+        input.placeholder = `Dog ${i} Name`;
+        input.className = "dogName";
+        input.required = true;
+        input.autocomplete = "off";
+        dogNamesDiv.appendChild(input);
+      }
+      syncDogNamesField();
     }
-  }
 
-  // ----------------------------
-  // PHONE FORMAT (US)
-  // ----------------------------
-  const phoneInput = document.getElementById("phone");
-  function formatUSPhone(digits){
-    const d = digits.slice(0,10);
-    if (d.length === 0) return "";
-    if (d.length < 4) return "(" + d;
-    if (d.length < 7) return "(" + d.slice(0,3) + ") " + d.slice(3);
-    return "(" + d.slice(0,3) + ") " + d.slice(3,6) + "-" + d.slice(6);
-  }
-  phoneInput.addEventListener("input", () => {
-    const digits = phoneInput.value.replace(/\D/g, "");
-    phoneInput.value = formatUSPhone(digits);
-  });
-
-  // ----------------------------
-  // ZIP CLEANUP (iOS autofill friendly)
-  // ----------------------------
-  const zipInput = document.getElementById("zip");
-  zipInput.addEventListener("input", () => {
-    let v = zipInput.value.replace(/[^\d-]/g, "");
-    if (v.length > 5) v = v.replace(/^(\d{5})(\d+)/, "$1-$2");
-    zipInput.value = v.slice(0, 10);
-  });
-
-  // ----------------------------
-  // LIVE PRICE ESTIMATE (EDIT THESE)
-  // ----------------------------
-  const frequencyEl = document.getElementById("frequency");
-  const serviceTypeEl = document.getElementById("serviceType");
-  const estimateBig = document.getElementById("estimateBig");
-  const estimateSmall = document.getElementById("estimateSmall");
-
-  // Example pricing — tell me your real numbers and I’ll set them
-  const BASE_PRICE = {
-    "2x per week": 25,
-    "Weekly": 18,
-    "Bi-weekly": 28,
-    "One time cleanup": 65,
-    "Winter Thaw": 75
-  };
-  const PER_DOG_ADDON = 4;
-  const SERVICE_MULT = {
-    "Frontyard Service": 1.0,
-    "Backyard Service": 1.0,
-    "Both": 1.15
-  };
-
-  function dollars(n){ return "$" + Math.round(n); }
-
-  function computeEstimate(){
-    const dogs = parseInt(dogInput.value, 10);
-    const freq = frequencyEl.value;
-    const svc  = serviceTypeEl.value;
-
-    if (!Number.isFinite(dogs) || dogs <= 0 || !freq) return "";
-
-    const base = BASE_PRICE[freq] ?? 0;
-    const dogAddon = Math.max(0, dogs - 1) * PER_DOG_ADDON;
-    const mult = SERVICE_MULT[svc] ?? 1.0;
-    const est = (base + dogAddon) * mult;
-
-    const label = (freq === "One time cleanup" || freq === "Winter Thaw")
-      ? "Estimated visit price"
-      : "Estimated recurring price";
-
-    return `${label}: ${dollars(est)}`;
-  }
-
-  function updateEstimateUI(){
-    const est = computeEstimate();
-    if (!est){
-      estimateBig.textContent = "Estimated price: —";
-      estimateSmall.textContent = "Choose number of dogs + service frequency to see an estimate.";
-      return;
+    function syncDogNamesField(){
+      const dogNames = Array.from(document.querySelectorAll(".dogName"))
+        .map(el => el.value.trim())
+        .filter(Boolean)
+        .join(", ");
+      dogNamesField.value = dogNames;
     }
-    estimateBig.textContent = est;
-    estimateSmall.textContent = "Estimate only — final price may change after first visit / yard condition.";
-  }
 
-  // ----------------------------
-  // EVENTS
-  // ----------------------------
-  dogInput.addEventListener("input", () => { renderDogNames(); updateEstimateUI(); });
-  frequencyEl.addEventListener("change", updateEstimateUI);
-  serviceTypeEl.addEventListener("change", updateEstimateUI);
+    dogNamesDiv.addEventListener("input", syncDogNamesField);
 
-  // Initialize estimate text
-  updateEstimateUI();
+    // ----------------------------
+    // PHONE FORMAT (US)
+    // ----------------------------
+    function formatUSPhone(digits){
+      const d = digits.slice(0,10);
+      if (d.length === 0) return "";
+      if (d.length < 4) return "(" + d;
+      if (d.length < 7) return "(" + d.slice(0,3) + ") " + d.slice(3);
+      return "(" + d.slice(0,3) + ") " + d.slice(3,6) + "-" + d.slice(6);
+    }
 
-  // ----------------------------
-  // SUBMIT TO GOOGLE APPS SCRIPT
-  // ----------------------------
-  const form = document.getElementById("form");
-  const submitBtn = document.getElementById("submitBtn");
-  const statusError = document.getElementById("statusError");
+    phoneInput.addEventListener("input", () => {
+      const digits = phoneInput.value.replace(/\D/g, "");
+      phoneInput.value = formatUSPhone(digits);
+    });
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    statusError.style.display = "none";
+    // ----------------------------
+    // ZIP CLEANUP (iOS autofill friendly)
+    // ----------------------------
+    zipInput.addEventListener("input", () => {
+      let v = zipInput.value.replace(/[^\d-]/g, "");
+      if (v.length > 5) v = v.replace(/^(\d{5})(\d+)/, "$1-$2");
+      zipInput.value = v.slice(0, 10);
+    });
 
-    submitBtn.disabled = true;
-    const oldText = submitBtn.textContent;
-    submitBtn.textContent = "Sending...";
-
-    const dogNames = Array.from(document.querySelectorAll(".dogName"))
-      .map(el => el.value.trim())
-      .filter(Boolean)
-      .join(", ");
-
-    const payload = {
-      openedAt,
-      company: document.getElementById("company").value, // honeypot
-      userAgent: navigator.userAgent,
-
-      firstName: document.getElementById("firstName").value.trim(),
-      lastName: document.getElementById("lastName").value.trim(),
-      streetAddress: document.getElementById("streetAddress").value.trim(),
-      town: document.getElementById("town").value.trim(),
-      zip: document.getElementById("zip").value.trim(),
-      phone: document.getElementById("phone").value.trim(),
-      email: document.getElementById("email").value.trim(),
-
-      dogs: document.getElementById("dogs").value.trim(),
-      dogNames,
-      allergies: document.getElementById("allergies").value.trim(),
-
-      frequency: document.getElementById("frequency").value,
-      serviceType: document.getElementById("serviceType").value,
-      dogBehavior: document.getElementById("dogBehavior").value,
-      gateType: document.getElementById("gateType").value,
-      comments: document.getElementById("comments").value.trim(),
-
-      estimate: computeEstimate()
+    // ----------------------------
+    // LIVE PRICE ESTIMATE (EDIT THESE)
+    // ----------------------------
+    const BASE_PRICE = {
+      "2x per week": 25,
+      "Weekly": 18,
+      "Bi-weekly": 28,
+      "One time cleanup": 65,
+      "Winter Thaw": 75
+    };
+    const PER_DOG_ADDON = 4;
+    const SERVICE_MULT = {
+      "Frontyard Service": 1.0,
+      "Backyard Service": 1.0,
+      "Both": 1.15
     };
 
-    try {
-      const res = await fetch(ENDPOINT, {
-  method: "POST",
-  body: new URLSearchParams(payload)
-});
+    function dollars(n){ return "$" + Math.round(n); }
 
-      // 200 => accepted, 202 => treated as spam/invalid on server side
-      if (res.ok) {
-        const json = await res.json().catch(() => ({}));
-        if (json && json.ok === false) {
-          window.location.href = ERROR_URL;
-        } else {
-          window.location.href = SUCCESS_URL;
-        }
-      } else {
-        window.location.href = ERROR_URL;
-      }
-    } catch (err) {
-      // network interruption
-      statusError.style.display = "block";
-      submitBtn.disabled = false;
-      submitBtn.textContent = oldText;
+    function computeEstimate(){
+      const dogs = parseInt(dogInput.value, 10);
+      const freq = frequencyEl.value;
+      const svc  = serviceTypeEl.value;
+
+      if (!Number.isFinite(dogs) || dogs <= 0 || !freq) return "";
+
+      const base = BASE_PRICE[freq] ?? 0;
+      const dogAddon = Math.max(0, dogs - 1) * PER_DOG_ADDON;
+      const mult = SERVICE_MULT[svc] ?? 1.0;
+      const est = (base + dogAddon) * mult;
+
+      const label = (freq === "One time cleanup" || freq === "Winter Thaw")
+        ? "Estimated visit price"
+        : "Estimated recurring price";
+
+      return `${label}: ${dollars(est)}`;
     }
-  });
-</script>
+
+    function updateEstimateUI(){
+      const est = computeEstimate();
+      if (!est){
+        estimateBig.textContent = "Estimated price: —";
+        estimateSmall.textContent = "Choose number of dogs + service frequency to see an estimate.";
+        estimateField.value = "";
+        return;
+      }
+      estimateBig.textContent = est;
+      estimateSmall.textContent = "Estimate only — final price may change after first visit / yard condition.";
+      estimateField.value = est; // this is what gets written to your sheet
+    }
+
+    // ----------------------------
+    // EVENTS
+    // ----------------------------
+    dogInput.addEventListener("input", () => { renderDogNames(); updateEstimateUI(); });
+    frequencyEl.addEventListener("change", updateEstimateUI);
+    serviceTypeEl.addEventListener("change", updateEstimateUI);
+
+    // Initialize
+    renderDogNames();
+    updateEstimateUI();
+
+    // ----------------------------
+    // SUBMIT (FORM-ENCODED, MATCHES e.parameter)
+    // ----------------------------
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      statusError.style.display = "none";
+
+      // Make sure our computed fields are up to date
+      syncDogNamesField();
+      updateEstimateUI();
+
+      submitBtn.disabled = true;
+      const oldText = submitBtn.textContent;
+      submitBtn.textContent = "Sending...";
+
+      try {
+        const fd = new FormData(form);
+        const body = new URLSearchParams();
+        for (const [k, v] of fd.entries()) body.append(k, v);
+
+        const res = await fetch(ENDPOINT, {
+          method: "POST",
+          body: body,
+          redirect: "follow"
+        });
+
+        const text = await res.text();
+
+        // If deployment/auth is wrong, you often get HTML / Google sign-in.
+        if (text.toLowerCase().includes("<html") || text.includes("accounts.google.com")) {
+          window.location.href = ERROR_URL;
+          return;
+        }
+
+        let json = {};
+        try { json = JSON.parse(text); } catch {}
+
+        if (!res.ok) {
+          window.location.href = ERROR_URL;
+          return;
+        }
+
+        if (json && json.ok === true) {
+          window.location.href = SUCCESS_URL;
+          return;
+        }
+
+        // spam or server error returned as ok:false
+        window.location.href = ERROR_URL;
+
+      } catch (err) {
+        console.error(err);
+        statusError.style.display = "block";
+        submitBtn.disabled = false;
+        submitBtn.textContent = oldText;
+      }
+    });
+  </script>
 </body>
 </html>
